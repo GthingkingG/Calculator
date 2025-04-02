@@ -7,14 +7,79 @@
 
 import SwiftUI
 
+enum buttonType: String {
+    case first, second, third, fourth, fifth, sixth, seventh, eighth, nineth,   zero, dot, equal, plus, minus, multiple, divide,
+         clear, opposite, percent
+    var buttonDisplay: String {
+        switch self {
+        case .first:
+            return "1"
+        case .second:
+            return "2"
+        case .third:
+            return "3"
+        case .fourth:
+            return "4"
+        case .fifth:
+            return "5"
+        case .sixth:
+            return "6"
+        case .seventh:
+            return "7"
+        case .eighth:
+            return "8"
+        case .nineth:
+            return "9"
+        case .zero:
+            return "0"
+        case .dot:
+            return "."
+        case .equal:
+            return "="
+        case .plus:
+            return "+"
+        case .minus:
+            return "-"
+        case .multiple:
+            return "X"
+        case .divide:
+            return "/"
+        case .percent:
+            return "%"
+        case .opposite:
+            return "+/-"
+        case .clear:
+            return "C"
+        }
+    }
+    var buttonColor: Color {
+        switch self {
+        case .first, .second, .third, .fourth, .fifth, .sixth, .seventh, .eighth, .nineth, .zero, .dot:
+            return .numberButton
+        case .equal, .plus, .minus, .multiple, .divide:
+            return .orange
+        case .clear, .opposite, .percent:
+            return .gray
+        }
+    }
+    var foregrooundColor: Color {
+        switch self {
+        case .first, .second, .third, .fourth, .fifth, .sixth, .seventh, .eighth, .nineth, .zero, .dot, .equal, .plus, .minus, .multiple, .divide:
+            return .white
+        case .clear, .opposite, .percent:
+            return .black
+        }
+    }
+}
+
 struct ContentView: View {
     @State var totalNumber: String = ""
-    private var buttonData: [[String]] = [
-        ["C", "+/-", "%", "/"],
-        ["7", "8", "9", "X"],
-        ["4", "5", "6", "-"],
-        ["1", "2", "3", "+"],
-        ["0", "0", ".", "="]
+    private var buttonData: [[buttonType]] = [
+        [.clear, .opposite, .percent, .divide],
+        [.seventh, .eighth, .nineth, .multiple],
+        [.fourth, .fifth, .sixth, .minus],
+        [.first, .second, .third, .plus],
+        [.zero, .zero, .dot, .equal]
     ]
     var body: some View {
         ZStack{
@@ -42,12 +107,12 @@ struct ContentView: View {
                                         totalNumber += "7"
                                     }
                                 } label: {
-                                    Text(row)
+                                    Text(row.buttonDisplay)
                                         .frame(width: 80, height: 80)
-                                        .background(.numberButton)
+                                        .background(row.buttonColor)
                                         .clipShape(Circle())
-                                        .foregroundColor(.white)
-                                        .font(.system(size: 33))
+                                        .foregroundColor(row.foregrooundColor)
+                                        .font(.system(size: 40))
                                 }
                             }
                         }
