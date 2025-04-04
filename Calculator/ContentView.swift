@@ -8,7 +8,7 @@
 import SwiftUI
 
 enum buttonType: String {
-    case first, second, third, fourth, fifth, sixth, seventh, eighth, nineth,   zero, dot, equal, plus, minus, multiple, divide,
+    case first, second, third, fourth, fifth, sixth, seventh, eighth, nineth, zero, dot, equal, plus, minus, multiple, divide,
          clear, opposite, percent
     var buttonDisplay: String {
         switch self {
@@ -73,13 +73,13 @@ enum buttonType: String {
 }
 
 struct ContentView: View {
-    @State var totalNumber: String = ""
+    @State var totalNumber: String = "0"
     private var buttonData: [[buttonType]] = [
         [.clear, .opposite, .percent, .divide],
         [.seventh, .eighth, .nineth, .multiple],
         [.fourth, .fifth, .sixth, .minus],
         [.first, .second, .third, .plus],
-        [.zero, .zero, .dot, .equal]
+        [.zero, .dot, .equal]
     ]
     var body: some View {
         ZStack{
@@ -101,16 +101,23 @@ struct ContentView: View {
                             ForEach(line, id: \.self)  {
                                 row in
                                 Button {
-                                    if totalNumber == "0" {
-                                        totalNumber = "7"
+                                    if row == .clear {
+                                        totalNumber = "0"
+                                    }
+                                    else if totalNumber == "0" {
+                                        if row == .plus || row == .minus || row == .multiple || row == .divide {
+                                            totalNumber = "Error"
+                                        } else {
+                                            totalNumber = row.buttonDisplay
+                                        }
                                     } else {
-                                        totalNumber += "7"
+                                        totalNumber += row.buttonDisplay
                                     }
                                 } label: {
                                     Text(row.buttonDisplay)
-                                        .frame(width: 80, height: 80)
+                                        .frame(width: row == .zero ? 165 : 80, height: 80)
                                         .background(row.buttonColor)
-                                        .clipShape(Circle())
+                                        .clipShape(Capsule())
                                         .foregroundColor(row.foregrooundColor)
                                         .font(.system(size: 40))
                                 }
