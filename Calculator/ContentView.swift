@@ -131,14 +131,22 @@ struct ContentView: View {
                                     } else if row == .equal {
                                         if operatorType == .plus {
                                             totalNumber = String(tempNumber + (Int(totalNumber) ?? 0))
+                                            operatorType = .equal
                                         } else if operatorType == .minus {
                                             totalNumber = String(tempNumber - (Int(totalNumber) ?? 0))
+                                            operatorType = .equal
                                         } else if operatorType == .multiple {
                                             totalNumber = String(tempNumber * (Int(totalNumber) ?? 0))
+                                            operatorType = .equal
                                         } else if operatorType == .divide {
-                                            totalNumber = String(tempNumber / (Int(totalNumber) ?? 0))
+                                            totalNumber = String(Double(tempNumber) / (Double(totalNumber) ?? 0))
+                                            operatorType = .equal
                                         }
                                     } else {
+                                        if operatorType == .equal {
+                                            totalNumber = ""
+                                            operatorType = .clear
+                                        }
                                         totalNumber += row.buttonDisplay
                                     }
                                 } label: {
