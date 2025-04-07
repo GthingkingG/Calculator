@@ -74,6 +74,8 @@ enum buttonType: String {
 
 struct ContentView: View {
     @State var totalNumber: String = "0"
+    @State var operatorType: buttonType = .clear
+    @State var tempNumber: Int = 0
     private var buttonData: [[buttonType]] = [
         [.clear, .opposite, .percent, .divide],
         [.seventh, .eighth, .nineth, .multiple],
@@ -109,6 +111,32 @@ struct ContentView: View {
                                             totalNumber = "Error"
                                         } else {
                                             totalNumber = row.buttonDisplay
+                                        }
+                                    } else if row == .plus {
+                                        tempNumber = Int(totalNumber) ?? 0
+                                        totalNumber = "0"
+                                        operatorType = .plus
+                                    } else if row == .minus {
+                                        tempNumber = Int(totalNumber) ?? 0
+                                        totalNumber = "0"
+                                        operatorType = .minus
+                                    } else if row == .multiple {
+                                        tempNumber = Int(totalNumber) ?? 0
+                                        totalNumber = "0"
+                                        operatorType = .multiple
+                                    } else if row == .divide {
+                                        tempNumber = Int(totalNumber) ?? 0
+                                        totalNumber = "0"
+                                        operatorType = .divide
+                                    } else if row == .equal {
+                                        if operatorType == .plus {
+                                            totalNumber = String(tempNumber + (Int(totalNumber) ?? 0))
+                                        } else if operatorType == .minus {
+                                            totalNumber = String(tempNumber - (Int(totalNumber) ?? 0))
+                                        } else if operatorType == .multiple {
+                                            totalNumber = String(tempNumber * (Int(totalNumber) ?? 0))
+                                        } else if operatorType == .divide {
+                                            totalNumber = String(tempNumber / (Int(totalNumber) ?? 0))
                                         }
                                     } else {
                                         totalNumber += row.buttonDisplay

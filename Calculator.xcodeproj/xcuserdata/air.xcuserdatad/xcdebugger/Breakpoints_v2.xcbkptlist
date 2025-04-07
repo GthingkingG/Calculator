@@ -8,14 +8,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "28CE61FA-390E-4943-A9FD-5D6C46DDA9F4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "87"
+            endingLineNumber = "87"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -24,14 +24,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "01527997-B04D-4CD0-BA63-1B4EC10D9BF4"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
             landmarkName = "body"
             landmarkType = "24">
          </BreakpointContent>
@@ -46,8 +46,8 @@
             filePath = "Calculator/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "78"
-            endingLineNumber = "78"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
             landmarkName = "buttonData"
             landmarkType = "24">
          </BreakpointContent>
@@ -56,14 +56,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "A7001967-B4F6-4E1E-BA3A-E638737BD320"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "79"
-            endingLineNumber = "79"
+            startingLineNumber = "81"
+            endingLineNumber = "81"
             landmarkName = "buttonData"
             landmarkType = "24">
          </BreakpointContent>
@@ -72,14 +72,14 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "D403D290-BA38-4818-82DB-6287478D81AD"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Calculator/ContentView.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "80"
-            endingLineNumber = "80"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
             landmarkName = "buttonData"
             landmarkType = "24">
          </BreakpointContent>
