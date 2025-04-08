@@ -74,8 +74,10 @@ enum buttonType: String {
 
 struct ContentView: View {
     @State var totalNumber: String = "0"
+    @State var resultNumber: Double = 0
     @State var operatorType: buttonType = .clear
-    @State var tempNumber: Int = 0
+    @State var tempNumber: Double = 0
+    @State var isError: Bool = false
     private var buttonData: [[buttonType]] = [
         [.clear, .opposite, .percent, .divide],
         [.seventh, .eighth, .nineth, .multiple],
@@ -94,7 +96,7 @@ struct ContentView: View {
                     Text(totalNumber)
                         .padding(10)
                         .font(.system(size: 60))
-                        .foregroundColor(.white)
+                        .foregroundColor(isError ? .red : .white)
                 }
                 VStack {
                     ForEach(buttonData, id: \.self) {
@@ -103,53 +105,74 @@ struct ContentView: View {
                             ForEach(line, id: \.self)  {
                                 row in
                                 Button {
-                                    if row == .clear {
+                                    if row == .clear || isError == true {
                                         totalNumber = "0"
+                                        isError = false
                                     }
                                     else if totalNumber == "0" {
-                                        if row == .plus || row == .multiple || row == .divide || row == .opposite || row == .percent {
+                                        if row == .plus || row == .multiple || row == .divide || row == .percent || row == .equal {
                                             totalNumber = "Error"
+                                            isError = true
+                                        } else if row == .dot {
+                                            totalNumber += row.buttonDisplay
+                                        } else if row == .opposite {
+                                            totalNumber = "0"
                                         } else {
                                             totalNumber = row.buttonDisplay
                                         }
                                     } else if row == .opposite {
-                                        totalNumber = String((Int(totalNumber) ?? 0) * -1)
+                                        totalNumber = String((Double(totalNumber) ?? 0) * -1)
                                     } else if row == .plus {
-                                        tempNumber = Int(totalNumber) ?? 0
+                                        tempNumber = Double(totalNumber) ?? 0
                                         totalNumber = "0"
                                         operatorType = .plus
                                     } else if row == .minus {
-                                        tempNumber = Int(totalNumber) ?? 0
+                                        tempNumber = Double(totalNumber) ?? 0
                                         totalNumber = "0"
                                         operatorType = .minus
                                     } else if row == .multiple {
-                                        tempNumber = Int(totalNumber) ?? 0
+                                        tempNumber = Double(totalNumber) ?? 0
                                         totalNumber = "0"
                                         operatorType = .multiple
                                     } else if row == .divide {
-                                        tempNumber = Int(totalNumber) ?? 0
+                                        tempNumber = Double(totalNumber) ?? 0
                                         totalNumber = "0"
                                         operatorType = .divide
                                     } else if row == .percent {
-                                        tempNumber = Int(totalNumber) ?? 0
+                                        tempNumber = Double(totalNumber) ?? 0
                                         totalNumber = "0"
                                         operatorType = .percent
                                     } else if row == .equal {
                                         if operatorType == .plus {
-                                            totalNumber = String(tempNumber + (Int(totalNumber) ?? 0))
+                                            resultNumber = tempNumber + (Double(totalNumber) ?? 0)
+                                            totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
                                             operatorType = .equal
                                         } else if operatorType == .minus {
-                                            totalNumber = String(tempNumber - (Int(totalNumber) ?? 0))
+                                            resultNumber = tempNumber - (Double(totalNumber) ?? 0)
+                                            totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
                                             operatorType = .equal
                                         } else if operatorType == .multiple {
-                                            totalNumber = String(tempNumber * (Int(totalNumber) ?? 0))
+                                            resultNumber = tempNumber * (Double(totalNumber) ?? 0)
+                                            totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
                                             operatorType = .equal
                                         } else if operatorType == .divide {
-                                            totalNumber = String(Double(tempNumber) / (Double(totalNumber) ?? 0))
-                                            operatorType = .equal
+                                            if totalNumber == "0" {
+                                                totalNumber = "Error"
+                                                isError = true
+                                            } else {
+                                                resultNumber = tempNumber / (Double(totalNumber) ?? 0)
+                                                totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
+                                                operatorType = .equal
+                                            }
                                         } else if operatorType == .percent {
-                                            totalNumber = String(tempNumber % (Int(totalNumber) ?? 0))
-                                            operatorType = .equal
+                                            if totalNumber == "0" {
+                                                totalNumber = "Error"
+                                                isError = true
+                                            } else {
+                                                resultNumber = tempNumber.truncatingRemainder(dividingBy: (Double(totalNumber) ?? 0))
+                                                totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
+                                                operatorType = .equal
+                                            }
                                         }
                                     } else {
                                         if operatorType == .equal {
