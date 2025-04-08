@@ -107,7 +107,7 @@ struct ContentView: View {
                                         totalNumber = "0"
                                     }
                                     else if totalNumber == "0" {
-                                        if row == .plus || row == .minus || row == .multiple || row == .divide {
+                                        if row == .plus || row == .multiple || row == .divide || row == .opposite || row == .percent {
                                             totalNumber = "Error"
                                         } else {
                                             totalNumber = row.buttonDisplay
