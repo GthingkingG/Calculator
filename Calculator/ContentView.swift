@@ -112,6 +112,8 @@ struct ContentView: View {
                                         } else {
                                             totalNumber = row.buttonDisplay
                                         }
+                                    } else if row == .opposite {
+                                        totalNumber = String((Int(totalNumber) ?? 0) * -1)
                                     } else if row == .plus {
                                         tempNumber = Int(totalNumber) ?? 0
                                         totalNumber = "0"
@@ -128,6 +130,10 @@ struct ContentView: View {
                                         tempNumber = Int(totalNumber) ?? 0
                                         totalNumber = "0"
                                         operatorType = .divide
+                                    } else if row == .percent {
+                                        tempNumber = Int(totalNumber) ?? 0
+                                        totalNumber = "0"
+                                        operatorType = .percent
                                     } else if row == .equal {
                                         if operatorType == .plus {
                                             totalNumber = String(tempNumber + (Int(totalNumber) ?? 0))
@@ -140,6 +146,9 @@ struct ContentView: View {
                                             operatorType = .equal
                                         } else if operatorType == .divide {
                                             totalNumber = String(Double(tempNumber) / (Double(totalNumber) ?? 0))
+                                            operatorType = .equal
+                                        } else if operatorType == .percent {
+                                            totalNumber = String(tempNumber % (Int(totalNumber) ?? 0))
                                             operatorType = .equal
                                         }
                                     } else {
