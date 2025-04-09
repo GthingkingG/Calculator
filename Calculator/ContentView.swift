@@ -73,11 +73,12 @@ enum buttonType: String {
 }
 
 struct ContentView: View {
-    @State var totalNumber: String = "0"
+    @State var totalNumber: String = ""
     @State var resultNumber: Double = 0
     @State var operatorType: buttonType = .clear
     @State var tempNumber: Double = 0
     @State var isError: Bool = false
+    @State var isEditing: Bool = false //editing이 아니면 새로운 값을 받아야 한다는 의미
     private var buttonData: [[buttonType]] = [
         [.clear, .opposite, .percent, .divide],
         [.seventh, .eighth, .nineth, .multiple],
@@ -108,40 +109,42 @@ struct ContentView: View {
                                     if row == .clear || isError == true {
                                         totalNumber = "0"
                                         isError = false
+                                        isEditing = false
                                     }
-                                    else if totalNumber == "0" {
+                                    else if isEditing == false { //새로운 입력을 받는 상태
                                         if row == .plus || row == .multiple || row == .divide || row == .percent || row == .equal {
                                             totalNumber = "Error"
                                             isError = true
                                         } else if row == .dot {
-                                            totalNumber += row.buttonDisplay
+                                            totalNumber = "0" + row.buttonDisplay
                                         } else if row == .opposite {
                                             totalNumber = "0"
                                         } else {
                                             totalNumber = row.buttonDisplay
+                                            isEditing = true
                                         }
-                                    } else if row == .opposite {
+                                    } else if row == .opposite { //새로운 입력을 받지 않는 상태
                                         resultNumber = -1 * (Double(totalNumber) ?? 0)
                                         totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
                                     } else if row == .plus {
                                         tempNumber = Double(totalNumber) ?? 0
-                                        totalNumber = "0"
+                                        totalNumber = ""
                                         operatorType = .plus
                                     } else if row == .minus {
                                         tempNumber = Double(totalNumber) ?? 0
-                                        totalNumber = "0"
+                                        totalNumber = ""
                                         operatorType = .minus
                                     } else if row == .multiple {
                                         tempNumber = Double(totalNumber) ?? 0
-                                        totalNumber = "0"
+                                        totalNumber = ""
                                         operatorType = .multiple
                                     } else if row == .divide {
                                         tempNumber = Double(totalNumber) ?? 0
-                                        totalNumber = "0"
+                                        totalNumber = ""
                                         operatorType = .divide
                                     } else if row == .percent {
                                         tempNumber = Double(totalNumber) ?? 0
-                                        totalNumber = "0"
+                                        totalNumber = ""
                                         operatorType = .percent
                                     } else if row == .equal {
                                         if operatorType == .plus {
