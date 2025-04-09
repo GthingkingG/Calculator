@@ -121,7 +121,8 @@ struct ContentView: View {
                                             totalNumber = row.buttonDisplay
                                         }
                                     } else if row == .opposite {
-                                        totalNumber = String((Double(totalNumber) ?? 0) * -1)
+                                        resultNumber = -1 * (Double(totalNumber) ?? 0)
+                                        totalNumber = resultNumber.truncatingRemainder(dividingBy: 1) == 0 ? String(format: "%.0f", resultNumber) : String(resultNumber)
                                     } else if row == .plus {
                                         tempNumber = Double(totalNumber) ?? 0
                                         totalNumber = "0"
